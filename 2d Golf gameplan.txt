@@ -1,0 +1,46 @@
+2d Golf gameplan:
+
+user agreement gag lmao
+
+game start
+mainmenu:
+play - 1 player, 2 player, 3 player, 4 player
+level select
+music vol, sfx vol
+quit
+Menu selections done by tap to change selection, hold to select
+for music and volume sliders uhhhhh maybe just have em be presets and only save when you select save at the bottom
+
+
+on play:
+player spawned in on golf course
+aiming - choose between click to select, or hold to move and release to select
+power - hold to ramp up power on a bar release to select
+then it shoots
+player runs up to ball
+repeat until win
+
+win:
+celebration animation over the hole
+move to next level, show score sheet
+if last level, show score sheet then on button press go to menu
+
+for multiplayer, do I want to have it go by who is furthest like golf, or just do static turn order
+
+
+
+Assets needed:
+golfer, running anim, shooting anim
+ball
+angle indicator
+power indicator
+confetti animation
+hole, tileset(s), background?
+Menu background
+~-1p, 2p, 3p, 4p
+!-start/play
+!-settings
+!-volume
+!quit
+!-menu back
+-score sheet
