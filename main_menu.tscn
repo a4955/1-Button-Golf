@@ -1,0 +1,63 @@
+[gd_scene load_steps=10 format=3 uid="uid://dxqadply0yuw2"]
+
+[ext_resource type="Script" path="res://main_menu.gd" id="1_18dkv"]
+[ext_resource type="Texture2D" uid="uid://dci6lykgckuqt" path="res://assets/title.png" id="1_80gg5"]
+[ext_resource type="Texture2D" uid="uid://phrpbqil11va" path="res://assets/play.png" id="1_q77g8"]
+[ext_resource type="Texture2D" uid="uid://dpovm047ni0ii" path="res://assets/settings.png" id="3_ld1g8"]
+[ext_resource type="Texture2D" uid="uid://dy50cbakp3vnr" path="res://assets/vol.png" id="4_q56ju"]
+[ext_resource type="Texture2D" uid="uid://cqhwcnxkv7ecy" path="res://assets/exit.png" id="5_opqc3"]
+[ext_resource type="Texture2D" uid="uid://cui3u2nk7nuuv" path="res://assets/cursor1.png" id="6_ow0cl"]
+[ext_resource type="Texture2D" uid="uid://h8uxmstk0oqy" path="res://assets/cursor2.png" id="7_lbt62"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ra67k"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_ow0cl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_lbt62")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.5
+}]
+
+[node name="main_menu" type="CanvasLayer"]
+script = ExtResource("1_18dkv")
+
+[node name="Title" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(800, 250)
+scale = Vector2(4, 4)
+texture = ExtResource("1_80gg5")
+
+[node name="Play" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(500, 700)
+scale = Vector2(4, 4)
+texture = ExtResource("1_q77g8")
+
+[node name="Settings" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(700, 700)
+scale = Vector2(4, 4)
+texture = ExtResource("3_ld1g8")
+
+[node name="Vol" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(900, 700)
+scale = Vector2(4, 4)
+texture = ExtResource("4_q56ju")
+
+[node name="Exit" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1100, 700)
+scale = Vector2(4, 4)
+texture = ExtResource("5_opqc3")
+
+[node name="Cursor" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(274, 651)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_ra67k")
