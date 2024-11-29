@@ -1,3 +1,6 @@
-[gd_scene format=3 uid="uid://c1273vccqavai"]
+[gd_scene load_steps=2 format=3 uid="uid://c1273vccqavai"]
 
-[node name="players_menu" type="CanvasLayer"]
+[ext_resource type="Script" path="res://players_menu.gd" id="1_owaf6"]
+
+[node name="PlayersMenu" type="CanvasLayer"]
+script = ExtResource("1_owaf6")

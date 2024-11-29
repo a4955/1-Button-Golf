@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://0y2v6lkv6slv"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_6wqs0"]
+[ext_resource type="PackedScene" uid="uid://bf5tfk1vey5qx" path="res://menu.tscn" id="1_h5yjy"]
+[ext_resource type="PackedScene" uid="uid://drk3kx5bjattv" path="res://gameplay.tscn" id="3_amhv5"]
+[ext_resource type="AudioStream" uid="uid://cmnquy6errg4d" path="res://assets/testsong.mp3" id="4_ho018"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_6wqs0")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.2067, 0.28002, 0.39, 1)
+
+[node name="Menu" parent="." instance=ExtResource("1_h5yjy")]
+
+[node name="Gameplay" parent="." instance=ExtResource("3_amhv5")]
+
+[node name="HoldTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="TapTimer" type="Timer" parent="."]
+wait_time = 0.221
+one_shot = true
+
+[node name="HoldIndicator" type="CanvasLayer" parent="."]
+layer = 5
+
+[node name="HoldIndLeft" type="ColorRect" parent="HoldIndicator"]
+offset_bottom = 40.0
+color = Color(0.1311, 0.382605, 0.69, 1)
+
+[node name="HoldIndRight" type="ColorRect" parent="HoldIndicator"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_bottom = 40.0
+grow_horizontal = 0
+scale = Vector2(-1, 1)
+color = Color(0.1311, 0.382605, 0.69, 1)
+
+[node name="HoldCancelTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="BgmPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_ho018")
+volume_db = -20.613
+autoplay = true
+
+[connection signal="timeout" from="HoldTimer" to="." method="_on_hold_timer_timeout"]
+[connection signal="timeout" from="HoldCancelTimer" to="." method="_on_hold_cancel_timer_timeout"]

@@ -1,12 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://bf5tfk1vey5qx"]
+[gd_scene load_steps=5 format=3 uid="uid://bf5tfk1vey5qx"]
 
 [ext_resource type="Script" path="res://menu.gd" id="1_ias36"]
 [ext_resource type="PackedScene" uid="uid://dxqadply0yuw2" path="res://main_menu.tscn" id="2_382ia"]
+[ext_resource type="Texture2D" uid="uid://dci6lykgckuqt" path="res://assets/title.png" id="2_hgw71"]
 [ext_resource type="PackedScene" uid="uid://c1273vccqavai" path="res://players_menu.tscn" id="3_w4klo"]
 
 [node name="Menu" type="CanvasLayer"]
 script = ExtResource("1_ias36")
 
-[node name="main_menu" parent="." instance=ExtResource("2_382ia")]
+[node name="Title" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(800, 300)
+scale = Vector2(4, 4)
+texture = ExtResource("2_hgw71")
 
-[node name="players_menu" parent="." instance=ExtResource("3_w4klo")]
+[node name="MainMenu" parent="." instance=ExtResource("2_382ia")]
+
+[node name="PlayersMenu" parent="." instance=ExtResource("3_w4klo")]

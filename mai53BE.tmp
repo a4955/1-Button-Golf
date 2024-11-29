@@ -1,0 +1,95 @@
+[gd_scene load_steps=13 format=3 uid="uid://dxqadply0yuw2"]
+
+[ext_resource type="Script" path="res://main_menu.gd" id="1_18dkv"]
+[ext_resource type="Texture2D" uid="uid://phrpbqil11va" path="res://assets/play.png" id="1_q77g8"]
+[ext_resource type="Texture2D" uid="uid://dy50cbakp3vnr" path="res://assets/sfx_on.png" id="4_q56ju"]
+[ext_resource type="Texture2D" uid="uid://cqhwcnxkv7ecy" path="res://assets/exit.png" id="5_opqc3"]
+[ext_resource type="Texture2D" uid="uid://d1ofnaavgjf5r" path="res://assets/sfx_off.png" id="5_v23hm"]
+[ext_resource type="Texture2D" uid="uid://o3xtg1yn0xnc" path="res://assets/music_on.png" id="6_my04i"]
+[ext_resource type="Texture2D" uid="uid://cui3u2nk7nuuv" path="res://assets/cursor1.png" id="6_ow0cl"]
+[ext_resource type="Texture2D" uid="uid://ce55bnjprg5ea" path="res://assets/music_off.png" id="7_d2xiu"]
+[ext_resource type="Texture2D" uid="uid://h8uxmstk0oqy" path="res://assets/cursor2.png" id="7_lbt62"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l46y2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_q56ju")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_v23hm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wq2lf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_my04i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_d2xiu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ra67k"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_ow0cl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_lbt62")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.5
+}]
+
+[node name="main_menu" type="CanvasLayer"]
+script = ExtResource("1_18dkv")
+
+[node name="Play" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(500, 700)
+scale = Vector2(4, 4)
+texture = ExtResource("1_q77g8")
+
+[node name="Sfx" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(700, 700)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_l46y2")
+
+[node name="Bgm" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(900, 700)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_wq2lf")
+
+[node name="Exit" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1100, 700)
+scale = Vector2(4, 4)
+texture = ExtResource("5_opqc3")
+
+[node name="Cursor" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(500, 700)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_ra67k")
+
+[node name="HoldTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="TapTimer" type="Timer" parent="."]
+wait_time = 0.221
+one_shot = true
+
+[connection signal="timeout" from="HoldTimer" to="." method="_on_hold_timer_timeout"]
