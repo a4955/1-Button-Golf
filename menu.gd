@@ -21,14 +21,17 @@ func change_state(state):
 		current_state = state
 		match state.name:
 			"MainMenu":
+				$Title.show()
 				$MainMenu.reset()
 				$MainMenu.show()
 				$PlayersMenu.hide()
 			"PlayersMenu":
+				$Title.show()
 				$PlayersMenu.reset()
 				$MainMenu.hide()
 				$PlayersMenu.show()
 	else:
+		$Title.hide()
 		$MainMenu.hide()
 		$PlayersMenu.hide()
 

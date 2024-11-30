@@ -1,6 +1,203 @@
-[gd_scene load_steps=2 format=3 uid="uid://drk3kx5bjattv"]
+[gd_scene load_steps=19 format=3 uid="uid://drk3kx5bjattv"]
 
 [ext_resource type="Script" path="res://gameplay.gd" id="1_u4sbf"]
+[ext_resource type="PackedScene" uid="uid://285p6rvf7be" path="res://game.tscn" id="2_awumq"]
+[ext_resource type="Texture2D" uid="uid://ixcftu832dma" path="res://assets/holdsheet.png" id="2_p7qxg"]
+[ext_resource type="Texture2D" uid="uid://tu2mvvwebfrd" path="res://assets/tapsheet.png" id="10_uu0ct"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2xjm3"]
+atlas = ExtResource("2_p7qxg")
+region = Rect2(0, 0, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8gujp"]
+atlas = ExtResource("2_p7qxg")
+region = Rect2(64, 0, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fcypk"]
+atlas = ExtResource("2_p7qxg")
+region = Rect2(128, 0, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3oli7"]
+atlas = ExtResource("2_p7qxg")
+region = Rect2(192, 0, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h7fh6"]
+atlas = ExtResource("2_p7qxg")
+region = Rect2(256, 0, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u5rji"]
+atlas = ExtResource("2_p7qxg")
+region = Rect2(384, 0, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8kpct"]
+atlas = ExtResource("2_p7qxg")
+region = Rect2(448, 0, 64, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o1l38"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2xjm3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8gujp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fcypk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3oli7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h7fh6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3oli7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h7fh6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u5rji")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8kpct")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rdhid"]
+atlas = ExtResource("10_uu0ct")
+region = Rect2(0, 0, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6qn0r"]
+atlas = ExtResource("10_uu0ct")
+region = Rect2(64, 0, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ecqt7"]
+atlas = ExtResource("10_uu0ct")
+region = Rect2(128, 0, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4dfin"]
+atlas = ExtResource("10_uu0ct")
+region = Rect2(256, 0, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nhm1m"]
+atlas = ExtResource("10_uu0ct")
+region = Rect2(320, 0, 64, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_q0dnq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rdhid")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6qn0r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ecqt7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4dfin")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nhm1m")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Gameplay" type="Node"]
 script = ExtResource("1_u4sbf")
+
+[node name="Game" parent="." instance=ExtResource("2_awumq")]
+
+[node name="Tutorial" type="CanvasLayer" parent="."]
+
+[node name="TutorialBgSignpost" type="ColorRect" parent="Tutorial"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 725.0
+offset_top = 765.0
+offset_right = -750.0
+offset_bottom = 65.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.219608, 0.141176, 0.129412, 1)
+
+[node name="TutorialBgBorder" type="ColorRect" parent="Tutorial"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 275.0
+offset_top = 125.0
+offset_right = -275.0
+offset_bottom = -125.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.22, 0.141827, 0.1298, 1)
+
+[node name="TutorialBg" type="ColorRect" parent="Tutorial"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 300.0
+offset_top = 150.0
+offset_right = -300.0
+offset_bottom = -150.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.301961, 0.184314, 0.164706, 1)
+
+[node name="TutorialBgDivider" type="ColorRect" parent="Tutorial"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 775.0
+offset_top = 140.0
+offset_right = -800.0
+offset_bottom = -140.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.219608, 0.141176, 0.129412, 1)
+
+[node name="HoldTutorial" type="AnimatedSprite2D" parent="Tutorial"]
+texture_filter = 1
+position = Vector2(514, 591)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_o1l38")
+autoplay = "default"
+
+[node name="HoldIndLeft" type="ColorRect" parent="Tutorial/HoldTutorial"]
+offset_left = -32.0
+offset_top = -24.0
+offset_right = -32.0
+offset_bottom = -16.0
+color = Color(0.1311, 0.382605, 0.69, 1)
+
+[node name="HoldIndRight" type="ColorRect" parent="Tutorial/HoldTutorial"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -32.0
+offset_top = -24.0
+offset_right = -32.0
+offset_bottom = -16.0
+grow_horizontal = 0
+scale = Vector2(-1, 1)
+color = Color(0.1311, 0.382605, 0.69, 1)
+
+[node name="TapTutorial" type="AnimatedSprite2D" parent="Tutorial"]
+texture_filter = 1
+position = Vector2(1088, 587)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_q0dnq")
+autoplay = "default"
+frame_progress = 0.478186
+
+[connection signal="frame_changed" from="Tutorial/HoldTutorial" to="." method="_on_hold_tutorial_frame_changed"]

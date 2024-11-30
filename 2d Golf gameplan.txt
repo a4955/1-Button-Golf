@@ -11,11 +11,31 @@ quit
 Menu selections done by tap to change selection, hold to select
 for music and volume sliders uhhhhh maybe just have em be presets and only save when you select save at the bottom
 
+Tutorial:
+
+double state machine, player and turn
+Gameplay tree:
+Intro
+Tutorial - maybe slide on and off screen
+Game
+-Player - state for each player
+-TurnPhase - state for segment of turn (start, angle, power, idle)
+Results - consider just having a scorecard on screen at all times in the corner
+
+course node:
+-textures
+-world collision
 
 on play:
+mini tutorial screen with control gifs
 player spawned in on golf course
-aiming - choose between click to select, or hold to move and release to select
+player sprite + cursor on play button screen, dismiss with hold
+on release of hold, start angle moving
+
+animate ball in play flashing for half second then aiming
+aiming - click to select
 power - hold to ramp up power on a bar release to select
+
 then it shoots
 player runs up to ball
 repeat until win
@@ -24,6 +44,11 @@ win:
 celebration animation over the hole
 move to next level, show score sheet
 if last level, show score sheet then on button press go to menu
+
+optional additions: 
+turn timer
+mercy rule
+player running to ball
 
 for multiplayer, do I want to have it go by who is furthest like golf, or just do static turn order
 

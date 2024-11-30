@@ -19,7 +19,7 @@ func reset():
 	$Cursor.position.x = buttons[selection].position.x
 
 func change_selection():
-	if get_node("../..").sfx: $MoveSfx.play()
+	if get_node("../..").sfx: get_node("../MoveSfx").play()
 	if selection < len(buttons) - 1:
 		selection += 1
 	else:
@@ -47,8 +47,8 @@ func hold():
 	# 0 play, 1 sfx, 2 bgm, 3 exit
 	match selection:
 		0, 1, 2, 3:
-			if get_node("../..").sfx: $ConfirmSfx.play()
+			if get_node("../..").sfx: get_node("../ConfirmSfx").play()
 			start_game.emit(selection + 1) # num players is selection + 1
 		4:
-			if get_node("../..").sfx: $ConfirmSfx.play()
+			if get_node("../..").sfx: get_node("../ConfirmSfx").play()
 			back_to_menu.emit()
