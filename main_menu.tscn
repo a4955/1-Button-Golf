@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dxqadply0yuw2"]
+[gd_scene load_steps=13 format=3 uid="uid://dxqadply0yuw2"]
 
 [ext_resource type="Script" path="res://main_menu.gd" id="1_18dkv"]
 [ext_resource type="Texture2D" uid="uid://phrpbqil11va" path="res://assets/play.png" id="1_q77g8"]
@@ -9,8 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://cui3u2nk7nuuv" path="res://assets/cursor1.png" id="6_ow0cl"]
 [ext_resource type="Texture2D" uid="uid://ce55bnjprg5ea" path="res://assets/music_off.png" id="7_d2xiu"]
 [ext_resource type="Texture2D" uid="uid://h8uxmstk0oqy" path="res://assets/cursor2.png" id="7_lbt62"]
-[ext_resource type="AudioStream" uid="uid://1rvurnhy1nd0" path="res://assets/confirm.ogg" id="10_6nvse"]
-[ext_resource type="AudioStream" uid="uid://r4x11euh8jrc" path="res://assets/move.ogg" id="12_vsi80"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_l46y2"]
 animations = [{
@@ -86,11 +84,3 @@ texture_filter = 1
 position = Vector2(500, 700)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_ra67k")
-
-[node name="ConfirmSfx" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("10_6nvse")
-volume_db = -14.054
-
-[node name="MoveSfx" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("12_vsi80")
-volume_db = -14.054

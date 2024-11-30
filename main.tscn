@@ -22,7 +22,7 @@ color = Color(0.2067, 0.28002, 0.39, 1)
 [node name="Gameplay" parent="." instance=ExtResource("3_amhv5")]
 
 [node name="HoldTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 0.878
 one_shot = true
 
 [node name="TapTimer" type="Timer" parent="."]
@@ -46,7 +46,7 @@ scale = Vector2(-1, 1)
 color = Color(0.1311, 0.382605, 0.69, 1)
 
 [node name="HoldCancelTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 1.733
 one_shot = true
 
 [node name="BgmPlayer" type="AudioStreamPlayer" parent="."]
@@ -57,5 +57,6 @@ volume_db = -20.613
 stream = ExtResource("5_beey2")
 volume_db = -14.054
 
+[connection signal="start_gameplay" from="Menu" to="." method="_on_menu_start_gameplay"]
 [connection signal="timeout" from="HoldTimer" to="." method="_on_hold_timer_timeout"]
 [connection signal="timeout" from="HoldCancelTimer" to="." method="_on_hold_cancel_timer_timeout"]

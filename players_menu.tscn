@@ -1,6 +1,71 @@
-[gd_scene load_steps=2 format=3 uid="uid://c1273vccqavai"]
+[gd_scene load_steps=11 format=3 uid="uid://c1273vccqavai"]
 
 [ext_resource type="Script" path="res://players_menu.gd" id="1_owaf6"]
+[ext_resource type="Texture2D" uid="uid://bn7j3waem42ym" path="res://assets/1p.png" id="2_ocii4"]
+[ext_resource type="Texture2D" uid="uid://bg31776674rhq" path="res://assets/2p.png" id="3_mhilo"]
+[ext_resource type="Texture2D" uid="uid://d4bwy8noc1sm0" path="res://assets/3p.png" id="4_yljgv"]
+[ext_resource type="Texture2D" uid="uid://4gvqeem2k841" path="res://assets/4p.png" id="5_wb50q"]
+[ext_resource type="Texture2D" uid="uid://cqhwcnxkv7ecy" path="res://assets/exit.png" id="6_2w02n"]
+[ext_resource type="Texture2D" uid="uid://cui3u2nk7nuuv" path="res://assets/cursor1.png" id="7_3eh4g"]
+[ext_resource type="Texture2D" uid="uid://h8uxmstk0oqy" path="res://assets/cursor2.png" id="8_cl05d"]
+[ext_resource type="AudioStream" uid="uid://r4x11euh8jrc" path="res://assets/move.ogg" id="9_m264q"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_703h0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_3eh4g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_cl05d")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.5
+}]
 
 [node name="PlayersMenu" type="CanvasLayer"]
 script = ExtResource("1_owaf6")
+
+[node name="1p" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(400, 700)
+scale = Vector2(4, 4)
+texture = ExtResource("2_ocii4")
+
+[node name="2p" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(600, 700)
+scale = Vector2(4, 4)
+texture = ExtResource("3_mhilo")
+
+[node name="3p" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(800, 700)
+scale = Vector2(4, 4)
+texture = ExtResource("4_yljgv")
+
+[node name="4p" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1000, 700)
+scale = Vector2(4, 4)
+texture = ExtResource("5_wb50q")
+
+[node name="Back" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1200, 700)
+scale = Vector2(4, 4)
+texture = ExtResource("6_2w02n")
+
+[node name="Cursor" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(400, 700)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_703h0")
+
+[node name="ConfirmSfx" type="AudioStreamPlayer" parent="."]
+volume_db = -14.054
+
+[node name="MoveSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_m264q")
+volume_db = -14.054

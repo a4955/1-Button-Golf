@@ -55,10 +55,11 @@ func change_state(state: Node):
 		"Menu":
 			$Gameplay.hide()
 			$Menu.reset()
-			pass
+			$Menu.show()
 		"Gameplay":
-			$Gameplay.show()
 			$Menu.hide()
+			$Gameplay.reset()
+			$Gameplay.show()
 
 func tapInstant():
 	current_state.tapInstant()
@@ -68,3 +69,6 @@ func tapRelease():
 
 func hold():
 	current_state.hold()
+
+func _on_menu_start_gameplay():
+	change_state($Gameplay)

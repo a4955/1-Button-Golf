@@ -1,4 +1,5 @@
 extends CanvasLayer
+signal play_pressed
 var selection = 0
 var buttons = []
 # 0 play, 1 sfx, 2 bgm, 3 exit
@@ -10,9 +11,13 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
+func reset():
+	selection = 0
+	$Cursor.position.x = buttons[selection].position.x
+
 func change_selection():
-	if get_node("../..").sfx: $MoveSfx.play()
-	if selection < 3:
+	if get_node("../..").sfx: $"../MoveSfx".play()
+	if selection < len(buttons) - 1:
 		selection += 1
 	else:
 		selection = 0
@@ -39,7 +44,8 @@ func hold():
 	# 0 play, 1 sfx, 2 bgm, 3 exit
 	match selection:
 		0:
-			if get_node("../..").sfx: $ConfirmSfx.play()
+			if get_node("../..").sfx: get_node("../ConfirmSfx").play()
+			play_pressed.emit()
 		1:
 			var Main = get_node("../..")
 			if Main.sfx:
@@ -48,9 +54,9 @@ func hold():
 			else:
 				Main.sfx = true
 				$Sfx.set_frame(0)
-			if Main.sfx: $ConfirmSfx.play()
+				get_node("../ConfirmSfx").play()
 		2:
-			if get_node("../..").sfx: $ConfirmSfx.play()
+			if get_node("../..").sfx: get_node("../ConfirmSfx").play()
 			var BgmPlayer = get_node("../../BgmPlayer")
 			if BgmPlayer.is_playing():
 				BgmPlayer.stop()
