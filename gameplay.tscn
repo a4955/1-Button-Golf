@@ -117,6 +117,7 @@ script = ExtResource("1_u4sbf")
 [node name="Game" parent="." instance=ExtResource("2_awumq")]
 
 [node name="Tutorial" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="TutorialBgSignpost" type="ColorRect" parent="Tutorial"]
 anchors_preset = 15
