@@ -56,3 +56,15 @@ func _on_players_menu_back_to_menu():
 func _on_players_menu_start_game(num_players):
 	change_state(null)
 	start_gameplay.emit(num_players)
+
+
+func _on_hold_tutorial_frame_changed():
+	var frame = $HoldTutorial.frame
+	var width = $HoldTutorial/HoldIndRight.position.x - $HoldTutorial/HoldIndLeft.position.x
+	match frame:
+		2, 3, 4, 5:
+			$HoldTutorial/HoldIndLeft.set_size(Vector2((frame - 1) * width / 8,8))
+			$HoldTutorial/HoldIndRight.set_size(Vector2((frame - 1) * width / 8,8))
+		7:
+			$HoldTutorial/HoldIndLeft.set_size(Vector2(0,8))
+			$HoldTutorial/HoldIndRight.set_size(Vector2(0,8))

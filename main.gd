@@ -22,15 +22,21 @@ func _process(delta: float):
 			$TapTimer.stop()
 			tapRelease()
 		if hold_ready:
-			hold()
+			if hold_enabled:
+				hold()
 			hold_ready = false
 			$HoldTimer.set_paused(false)
 			$HoldCancelTimer.stop()
-	var time_left_bar = (1 - ($HoldTimer.time_left / $HoldTimer.wait_time)) * 800
-	if $HoldTimer.time_left == 0: time_left_bar = 0
-	if hold_ready: time_left_bar = 800
-	$HoldIndicator/HoldIndLeft.set_size(Vector2(time_left_bar,40))
-	$HoldIndicator/HoldIndRight.set_size(Vector2(time_left_bar,40))
+	if hold_enabled:
+		var time_left_bar = (1 - ($HoldTimer.time_left / $HoldTimer.wait_time)) * 800
+		if $HoldTimer.time_left == 0: time_left_bar = 0
+		if hold_ready: time_left_bar = 800
+		$HoldIndicator/HoldIndLeft.set_size(Vector2(time_left_bar,40))
+		$HoldIndicator/HoldIndRight.set_size(Vector2(time_left_bar,40))
+	else: 
+		$HoldIndicator/HoldIndLeft.set_size(Vector2(0,40))
+		$HoldIndicator/HoldIndRight.set_size(Vector2(0,40))
+		
 
 func _input(event: InputEvent):
 	# Interrupts 
@@ -47,8 +53,9 @@ func _on_hold_cancel_timer_timeout():
 	hold_ready = false
 	$HoldTimer.set_paused(false)
 	$HoldTimer.stop()
-	hold_cancelled = true
-	$CancelSfx.play()
+	if hold_enabled:
+		hold_cancelled = true
+		$CancelSfx.play()
 
 func change_state(state: Node):
 	current_state = state
@@ -59,6 +66,7 @@ func change_state(state: Node):
 			$Menu.reset()
 			$Menu.show()
 		"Gameplay":
+			hold_enabled = false
 			$Menu.hide()
 			$Gameplay.reset()
 			$Gameplay.show()

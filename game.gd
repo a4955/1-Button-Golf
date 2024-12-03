@@ -78,6 +78,7 @@ func power_phase(delta: float):
 			change_phase("Idle")
 
 func change_course(new_course: Node):
+	print("b", new_course.name)
 	p1_in_play = true
 	if num_players == 2: p2_in_play = true
 	else: p2_in_play = false
@@ -99,7 +100,7 @@ func change_course(new_course: Node):
 	$Ball3.set_position_safely(spawn)
 	$Ball4.set_position_safely(spawn)
 
-func reset():
+func reset_course():
 	num_players = get_node("../..").num_players
 	ball.set_velocity_safely(Vector2(0,0))
 	ball.set_position_safely(Vector2(0,0))
@@ -115,9 +116,25 @@ func reset():
 	$P2.hide()
 	$P3.hide()
 	$P4.hide()
-	change_course($Course1)
+	p1_in_play = true
+	if num_players == 2: p2_in_play = true
+	else: p2_in_play = false
+	if num_players == 3: p3_in_play = true
+	else: p3_in_play = false
+	if num_players == 4: p4_in_play = true
+	else: p4_in_play = false
+	var spawn = course.get_node("BallSpawn").get_position()
+	$Ball1.set_position_safely(spawn)
+	$Ball2.set_position_safely(spawn)
+	$Ball3.set_position_safely(spawn)
+	$Ball4.set_position_safely(spawn)
 	change_player($P1, $Ball1)
 	change_phase("Start")
+	
+
+func reset():
+	reset_course()
+	change_course($Course1)
 
 func tapInstant(): # TODO Make a timer at the start of each phase to disable inputs for 1/2 sec
 	if phase == "Angle":
@@ -128,7 +145,6 @@ func tapRelease():
 	pass
 
 func hold():
-	reset()
 	pass
 
 func change_player(next_player: Node, next_ball: Node):
@@ -191,7 +207,8 @@ func _on_turn_end_delay_timeout():
 	# Decide how to decide the next player. Order, or furthest?
 	player.set_frame(0)
 	if !(p1_in_play || p2_in_play || p3_in_play || p4_in_play):
-		reset()
+		reset_course()
+		print("a", course.name)
 		match course.name:
 			"Course1":
 				change_course($Course2)
@@ -199,7 +216,7 @@ func _on_turn_end_delay_timeout():
 				change_course($Course3)
 			"Course3":
 				reset()
-				get_node("../..").change_state("Menu")
+				get_node("../..").change_state(get_node("../../Menu"))
 	else:
 		var next_player = player
 		var next_ball = ball

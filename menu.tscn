@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bf5tfk1vey5qx"]
+[gd_scene load_steps=25 format=3 uid="uid://bf5tfk1vey5qx"]
 
 [ext_resource type="Script" path="res://menu.gd" id="1_ias36"]
 [ext_resource type="PackedScene" uid="uid://dxqadply0yuw2" path="res://main_menu.tscn" id="2_382ia"]
@@ -6,6 +6,116 @@
 [ext_resource type="PackedScene" uid="uid://c1273vccqavai" path="res://players_menu.tscn" id="3_w4klo"]
 [ext_resource type="AudioStream" uid="uid://1rvurnhy1nd0" path="res://assets/confirm.ogg" id="5_feylb"]
 [ext_resource type="AudioStream" uid="uid://r4x11euh8jrc" path="res://assets/move.ogg" id="6_6pamx"]
+[ext_resource type="Texture2D" uid="uid://ixcftu832dma" path="res://assets/holdsheet.png" id="7_ducso"]
+[ext_resource type="Texture2D" uid="uid://tu2mvvwebfrd" path="res://assets/tapsheet.png" id="8_sbbof"]
+[ext_resource type="Texture2D" uid="uid://dk26mwpxgy551" path="res://assets/confirm.png" id="9_ukuhl"]
+[ext_resource type="Texture2D" uid="uid://cy4uxo1lkn1ru" path="res://assets/next.png" id="10_enith"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2xjm3"]
+atlas = ExtResource("7_ducso")
+region = Rect2(0, 0, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8gujp"]
+atlas = ExtResource("7_ducso")
+region = Rect2(64, 0, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fcypk"]
+atlas = ExtResource("7_ducso")
+region = Rect2(128, 0, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3oli7"]
+atlas = ExtResource("7_ducso")
+region = Rect2(192, 0, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h7fh6"]
+atlas = ExtResource("7_ducso")
+region = Rect2(256, 0, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u5rji"]
+atlas = ExtResource("7_ducso")
+region = Rect2(384, 0, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8kpct"]
+atlas = ExtResource("7_ducso")
+region = Rect2(448, 0, 64, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_eiy6t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2xjm3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8gujp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fcypk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3oli7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h7fh6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3oli7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h7fh6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u5rji")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8kpct")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rdhid"]
+atlas = ExtResource("8_sbbof")
+region = Rect2(0, 0, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6qn0r"]
+atlas = ExtResource("8_sbbof")
+region = Rect2(64, 0, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ecqt7"]
+atlas = ExtResource("8_sbbof")
+region = Rect2(128, 0, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4dfin"]
+atlas = ExtResource("8_sbbof")
+region = Rect2(256, 0, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nhm1m"]
+atlas = ExtResource("8_sbbof")
+region = Rect2(320, 0, 64, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0u1t5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rdhid")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6qn0r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ecqt7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4dfin")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nhm1m")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Menu" type="CanvasLayer"]
 script = ExtResource("1_ias36")
@@ -28,6 +138,56 @@ volume_db = -14.054
 stream = ExtResource("6_6pamx")
 volume_db = -14.054
 
+[node name="HoldTutorial" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(150, 775)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_eiy6t")
+autoplay = "default"
+frame = 5
+frame_progress = 0.569447
+
+[node name="HoldIndLeft" type="ColorRect" parent="HoldTutorial"]
+offset_left = -32.0
+offset_top = -24.0
+offset_right = -32.0
+offset_bottom = -16.0
+color = Color(0.1311, 0.382605, 0.69, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="HoldIndRight" type="ColorRect" parent="HoldTutorial"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -32.0
+offset_top = -24.0
+offset_right = -32.0
+offset_bottom = -16.0
+grow_horizontal = 0
+scale = Vector2(-1, 1)
+color = Color(0.1311, 0.382605, 0.69, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="TapTutorial" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1450, 775)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_0u1t5")
+autoplay = "default"
+
+[node name="Confirm" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(150, 675)
+scale = Vector2(4, 4)
+texture = ExtResource("9_ukuhl")
+
+[node name="Next" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1450, 675)
+scale = Vector2(4, 4)
+texture = ExtResource("10_enith")
+
 [connection signal="play_pressed" from="MainMenu" to="." method="_on_main_menu_play_pressed"]
 [connection signal="back_to_menu" from="PlayersMenu" to="." method="_on_players_menu_back_to_menu"]
 [connection signal="start_game" from="PlayersMenu" to="." method="_on_players_menu_start_game"]
+[connection signal="frame_changed" from="HoldTutorial" to="." method="_on_hold_tutorial_frame_changed"]
