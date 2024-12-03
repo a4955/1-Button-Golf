@@ -2,7 +2,7 @@ extends Node
 var current_state
 # If time, add an intro state
 
-func _ready() -> void:
+func _ready():
 	current_state = $Game
 
 func _process(delta: float):

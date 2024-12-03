@@ -36,7 +36,6 @@ func change_state(state):
 		#current_state.resize()
 
 func tapInstant():
-	_on_players_menu_start_game(3) # remove
 	if current_state:
 		current_state.tapInstant()
 

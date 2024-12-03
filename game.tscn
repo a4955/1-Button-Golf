@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://285p6rvf7be"]
+[gd_scene load_steps=56 format=3 uid="uid://285p6rvf7be"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_1wycq"]
 [ext_resource type="PackedScene" uid="uid://x11ni4l5mda5" path="res://courses/course1.tscn" id="1_qjky6"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://dbqhuk0lbb5yd" path="res://assets/P2.png" id="6_c0fe5"]
 [ext_resource type="Texture2D" uid="uid://dhswti3218mkw" path="res://assets/P3.png" id="7_ew2wl"]
 [ext_resource type="Texture2D" uid="uid://dn0nwddwifer6" path="res://assets/P4.png" id="8_jbm7o"]
+[ext_resource type="Texture2D" uid="uid://c1h46irdqo7ko" path="res://assets/confetti.png" id="12_a06lo"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_igfad"]
 bounce = 1.0
@@ -260,6 +261,48 @@ animations = [{
 "speed": 15.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_8u4fi"]
+atlas = ExtResource("12_a06lo")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5v4ba"]
+atlas = ExtResource("12_a06lo")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a5q32"]
+atlas = ExtResource("12_a06lo")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_po1b5"]
+atlas = ExtResource("12_a06lo")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gawnp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8u4fi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5v4ba")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a5q32")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_po1b5")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
 [node name="Game" type="Node2D"]
 script = ExtResource("1_1wycq")
 
@@ -273,6 +316,8 @@ visible = false
 visible = false
 
 [node name="Ball1" type="RigidBody2D" parent="."]
+visible = false
+collision_layer = 2
 physics_material_override = SubResource("PhysicsMaterial_igfad")
 linear_damp_mode = 1
 linear_damp = 0.5
@@ -289,6 +334,8 @@ shape = SubResource("CircleShape2D_03t64")
 metadata/_edit_lock_ = true
 
 [node name="Ball2" type="RigidBody2D" parent="."]
+visible = false
+collision_layer = 2
 physics_material_override = SubResource("PhysicsMaterial_igfad")
 linear_damp_mode = 1
 linear_damp = 0.5
@@ -305,6 +352,8 @@ shape = SubResource("CircleShape2D_03t64")
 metadata/_edit_lock_ = true
 
 [node name="Ball3" type="RigidBody2D" parent="."]
+visible = false
+collision_layer = 2
 physics_material_override = SubResource("PhysicsMaterial_igfad")
 linear_damp_mode = 1
 linear_damp = 0.5
@@ -321,6 +370,8 @@ shape = SubResource("CircleShape2D_03t64")
 metadata/_edit_lock_ = true
 
 [node name="Ball4" type="RigidBody2D" parent="."]
+visible = false
+collision_layer = 2
 physics_material_override = SubResource("PhysicsMaterial_igfad")
 linear_damp_mode = 1
 linear_damp = 0.5
@@ -387,6 +438,10 @@ position = Vector2(721, 321)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_53jkw")
 offset = Vector2(-8, 1)
+
+[node name="Confetti" type="AnimatedSprite2D" parent="."]
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_gawnp")
 
 [node name="TurnEndDelay" type="Timer" parent="."]
 wait_time = 0.872

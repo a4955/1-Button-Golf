@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://cx8mahx2fohyw"]
+[gd_scene load_steps=12 format=3 uid="uid://cx8mahx2fohyw"]
 
 [ext_resource type="Texture2D" uid="uid://webvqh6xmha2" path="res://assets/course3.png" id="1_b84ap"]
+[ext_resource type="Script" path="res://courses/hole_hitbox.gd" id="2_00a8y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dofk0"]
 size = Vector2(372, 900)
@@ -80,6 +81,8 @@ shape = SubResource("RectangleShape2D_re1q2")
 disabled = true
 
 [node name="HoleHitbox" type="Area2D" parent="."]
+collision_mask = 3
+script = ExtResource("2_00a8y")
 
 [node name="HoleHitboxShape" type="CollisionShape2D" parent="HoleHitbox"]
 position = Vector2(888, 464)
@@ -89,3 +92,5 @@ disabled = true
 [node name="BallSpawn" type="Node2D" parent="."]
 position = Vector2(452, 636)
 scale = Vector2(4, 4)
+
+[connection signal="body_entered" from="HoleHitbox" to="HoleHitbox" method="_on_body_entered"]

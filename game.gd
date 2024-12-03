@@ -8,14 +8,20 @@ var power_reverse = false
 var angle_released = false
 var swung = false
 var course
-var p1_coords = Vector2(0,0)
-var p2_coords = Vector2(0,0)
-var p3_coords = Vector2(0,0)
-var p4_coords = Vector2(0,0)
+var p1_in_play
+var p2_in_play
+var p3_in_play
+var p4_in_play
+var num_players
 const ROTATION_SPEED = 3
 const MAX_POWER = 20
 
 func _ready():
+	#course = $Course1
+	#call_deferred("change_course", $Course1)
+	num_players = get_node("../..").num_players
+	player = $P1
+	ball = $Ball1
 	change_course($Course1)
 	change_player($P1, $Ball1)
 	change_phase("Start")
@@ -41,16 +47,15 @@ func _physics_process(delta: float):
 				ball.apply_central_impulse(Vector2(0,-50 * power).rotated(ball.get_rotation()))
 		elif swung:
 			ball.apply_central_force(-ball.linear_velocity.normalized()*50)
-			if ball.linear_velocity.abs() < Vector2(1,1):
+			if ball.linear_velocity.length() < 1:
 				swung = false
 				ball.set_velocity_safely(Vector2(0,0))
 				$TurnEndDelay.start()
 
 func angle_phase(delta: float):
 	var current_rotation = ball.get_rotation()
-	ball.set_rotation(current_rotation + (ROTATION_SPEED * delta))
-	$Hud.set_rotation(ball.get_rotation())
-	player.set_rotation(ball.get_rotation())
+	ball.change_angle_safely(ROTATION_SPEED * delta)
+	ball.move_player_to_ball(player, $Hud)
 
 func power_phase(delta: float):
 	if Input.is_anything_pressed():
@@ -73,6 +78,13 @@ func power_phase(delta: float):
 			change_phase("Idle")
 
 func change_course(new_course: Node):
+	p1_in_play = true
+	if num_players == 2: p2_in_play = true
+	else: p2_in_play = false
+	if num_players == 3: p3_in_play = true
+	else: p3_in_play = false
+	if num_players == 4: p4_in_play = true
+	else: p4_in_play = false
 	if course:
 		course.get_node("HoleHitbox/HoleHitboxShape").set_disabled(true)
 		get_tree().call_group(course.name + "Collision", "set_disabled", true)
@@ -81,15 +93,31 @@ func change_course(new_course: Node):
 	course.get_node("HoleHitbox/HoleHitboxShape").set_disabled(false)
 	get_tree().call_group(course.name + "Collision", "set_disabled", false)
 	course.show()
-	p1_coords = course.get_node("BallSpawn").get_position()
-	p2_coords = course.get_node("BallSpawn").get_position()
-	p3_coords = course.get_node("BallSpawn").get_position()
-	p4_coords = course.get_node("BallSpawn").get_position()
-	#$Ball.set_position(course.get_node("BallSpawn").get_position())
-	#$Ball.set_rotation(course.get_node("BallSpawn").get_rotation())
+	var spawn = course.get_node("BallSpawn").get_position()
+	$Ball1.set_position_safely(spawn)
+	$Ball2.set_position_safely(spawn)
+	$Ball3.set_position_safely(spawn)
+	$Ball4.set_position_safely(spawn)
 
 func reset():
-	pass
+	num_players = get_node("../..").num_players
+	ball.set_velocity_safely(Vector2(0,0))
+	ball.set_position_safely(Vector2(0,0))
+	ball.set_angle_safely(0)
+	$Ball1.hide()
+	$Ball2.hide()
+	$Ball3.hide()
+	$Ball4.hide()
+	get_node("Hud/Angle").hide()
+	get_node("Hud/Power").hide()
+	get_node("Hud/PowerMeter").hide()
+	$P1.hide()
+	$P2.hide()
+	$P3.hide()
+	$P4.hide()
+	change_course($Course1)
+	change_player($P1, $Ball1)
+	change_phase("Start")
 
 func tapInstant(): # TODO Make a timer at the start of each phase to disable inputs for 1/2 sec
 	if phase == "Angle":
@@ -100,38 +128,38 @@ func tapRelease():
 	pass
 
 func hold():
+	reset()
 	pass
 
 func change_player(next_player: Node, next_ball: Node):
+	ball.move_player_to_ball(player, $Hud)
+	player.hide()
 	player = next_player
 	ball = next_ball
-	$P1.hide()
-	$P2.hide()
-	$P3.hide()
-	$P4.hide()
-	match next_player.name:
-		"P1":
-			#$Ball.set_position(p1_coords)
-			$P1.show()
-		"P2":
-			#$Ball.set_position(p2_coords)
-			$P2.show()
-		"P3":
-			#$Ball.set_position(p3_coords)
-			$P3.show()
-		"P4":
-			#$Ball.set_position(p4_coords)
-			$P4.show()
+	#$P1.hide()
+	#$P2.hide()
+	#$P3.hide()
+	#$P4.hide()
+	ball.show()
+	#match next_player.name:
+		#"P1":
+			##ball.set_position_safely(p1_coords)
+			#$P1.show()
+		#"P2":
+			##ball.set_position_safely(p2_coords)
+			#$P2.show()
+		#"P3":
+			##ball.set_position_safely(p3_coords)
+			#$P3.show()
+		#"P4":
+			##ball.set_position_safely(p4_coords)
+			#$P4.show()
 
 func change_phase(next_phase: String):
 	phase = next_phase
 	match phase:
 		"Start":
-			#ball.move_player_to_ball(player, $Hud)
-			player.set_position(ball.get_position())
-			player.set_rotation(ball.get_rotation())
-			$Hud.set_position(ball.get_position())
-			$Hud.set_rotation(ball.get_rotation())
+			ball.move_player_to_ball(player, $Hud, true)
 		"Angle":
 			get_node("Hud/Angle").show()
 		"Power":
@@ -144,39 +172,77 @@ func change_phase(next_phase: String):
 			swung = false
 			player.play()
 
+func ball_sunk(sunk_ball):
+	$Confetti.set_position(sunk_ball.get_position())
+	$Confetti.play()
+	sunk_ball.set_position_safely(Vector2(-1000,-1000))
+	sunk_ball.set_velocity_safely(Vector2(10,10))
+	match sunk_ball.name:
+		"Ball1":
+			p1_in_play = false
+		"Ball2":
+			p2_in_play = false
+		"Ball3":
+			p3_in_play = false
+		"Ball4":
+			p4_in_play = false
 
 func _on_turn_end_delay_timeout():
 	# Decide how to decide the next player. Order, or furthest?
-	var next_player
-	var next_ball
-	match player.name:
-		"P1":
-			#p1_coords = $Ball.get_position()
-			if get_node("../..").num_players == 1:
-				next_player = $P1
-				next_ball = $Ball1
-			else:
-				next_player = $P2
-				next_ball = $Ball2
-		"P2":
-			#p2_coords = $Ball.get_position()
-			if get_node("../..").num_players == 2:
-				next_player = $P1
-				next_ball = $Ball1
-			else:
-				next_player = $P3
-				next_ball = $Ball3
-		"P3":
-			#p3_coords = $Ball.get_position()
-			if get_node("../..").num_players == 3:
-				next_player = $P1
-				next_ball = $Ball1
-			else:
-				next_player = $P4
-				next_ball = $Ball4
-		"P4":
-			#p4_coords = $Ball.get_position()
-			next_player = $P1
-			next_ball = $Ball1
-	change_player(next_player, next_ball)
-	change_phase("Start")
+	player.set_frame(0)
+	if !(p1_in_play || p2_in_play || p3_in_play || p4_in_play):
+		reset()
+		match course.name:
+			"Course1":
+				change_course($Course2)
+			"Course2":
+				change_course($Course3)
+			"Course3":
+				reset()
+				get_node("../..").change_state("Menu")
+	else:
+		var next_player = player
+		var next_ball = ball
+		match player.name:
+			"P1":
+				if p2_in_play: 
+					next_player = $P2
+					next_ball = $Ball2
+				elif p3_in_play:
+					next_player = $P3
+					next_ball = $Ball3
+				elif p4_in_play:
+					next_player = $P4
+					next_ball = $Ball4
+			"P2":
+				if p3_in_play:
+					next_player = $P3
+					next_ball = $Ball3
+				elif p4_in_play:
+					next_player = $P4
+					next_ball = $Ball4
+				elif p1_in_play:
+					next_player = $P1
+					next_ball = $Ball1
+			"P3":
+				if p4_in_play: 
+					next_player = $P4
+					next_ball = $Ball4
+				elif p1_in_play:
+					next_player = $P1
+					next_ball = $Ball1
+				elif p2_in_play:
+					next_player = $P2
+					next_ball = $Ball2
+			"P4":
+				if p1_in_play: 
+					next_player = $P1
+					next_ball = $Ball1
+				elif p2_in_play:
+					next_player = $P2
+					next_ball = $Ball2
+				elif p3_in_play:
+					next_player = $P3
+					next_ball = $Ball3
+		change_player(next_player, next_ball)
+		change_phase("Start")

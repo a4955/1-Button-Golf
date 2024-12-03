@@ -3,6 +3,7 @@ var current_state
 var hold_ready = false
 var hold_cancelled = false
 var sfx = true
+var hold_enabled = true
 var num_players
 ##### REMEMBER TO TURN MUSIC AUTOPLAY ON
 func _ready():
@@ -53,6 +54,7 @@ func change_state(state: Node):
 	current_state = state
 	match state.name:
 		"Menu":
+			hold_enabled = true
 			$Gameplay.hide()
 			$Menu.reset()
 			$Menu.show()
