@@ -1,0 +1,76 @@
+[gd_scene load_steps=9 format=3 uid="uid://x11ni4l5mda5"]
+
+[ext_resource type="Texture2D" uid="uid://dvuejutnx7g6m" path="res://assets/course1.png" id="1_u38vs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yq8vy"]
+size = Vector2(956, 388)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ypxkw"]
+size = Vector2(956, 360)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0bwbq"]
+size = Vector2(268, 360)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_on623"]
+size = Vector2(780, 212)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_us2i8"]
+size = Vector2(780, 184)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ovbn"]
+size = Vector2(216, 780)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ul5uu"]
+radius = 16.0
+
+[node name="Course1" type="Node2D"]
+
+[node name="Texture" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(4, 4)
+texture = ExtResource("1_u38vs")
+metadata/_edit_use_anchors_ = true
+
+[node name="Collision" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collision" groups=["Course1Collision"]]
+position = Vector2(478, 194)
+shape = SubResource("RectangleShape2D_yq8vy")
+disabled = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Collision" groups=["Course1Collision"]]
+position = Vector2(478, 720)
+shape = SubResource("RectangleShape2D_ypxkw")
+disabled = true
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Collision" groups=["Course1Collision"]]
+position = Vector2(134, 464)
+shape = SubResource("RectangleShape2D_0bwbq")
+disabled = true
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Collision" groups=["Course1Collision"]]
+position = Vector2(1210, 106)
+shape = SubResource("RectangleShape2D_on623")
+disabled = true
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="Collision" groups=["Course1Collision"]]
+position = Vector2(1210, 808)
+shape = SubResource("RectangleShape2D_us2i8")
+disabled = true
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="Collision" groups=["Course1Collision"]]
+position = Vector2(1492, 470)
+shape = SubResource("RectangleShape2D_4ovbn")
+disabled = true
+
+[node name="HoleHitbox" type="Area2D" parent="."]
+
+[node name="HoleHitboxShape" type="CollisionShape2D" parent="HoleHitbox"]
+position = Vector2(1288, 464)
+shape = SubResource("CircleShape2D_ul5uu")
+disabled = true
+
+[node name="BallSpawn" type="Node2D" parent="."]
+position = Vector2(344, 464)
+rotation = 1.5708

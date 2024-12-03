@@ -3,28 +3,28 @@ var current_state
 # If time, add an intro state
 
 func _ready() -> void:
-	current_state = $Tutorial
+	current_state = $Game
 
 func _process(delta: float):
 	pass
 
 func show():
-	pass
+	$Game.show()
 
 func hide():
-	pass
+	$Game.hide()
 
 func reset():
-	pass
+	$Game.reset()
 
 func tapInstant():
-	pass
+	$Game.tapInstant()
 
 func tapRelease():
-	pass
+	$Game.tapRelease()
 
 func hold():
-	pass
+	$Game.hold()
 	
 func change_state(state: Node):
 	current_state = state

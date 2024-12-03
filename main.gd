@@ -3,11 +3,11 @@ var current_state
 var hold_ready = false
 var hold_cancelled = false
 var sfx = true
+var num_players
 ##### REMEMBER TO TURN MUSIC AUTOPLAY ON
 func _ready():
 	current_state = $Menu
 	$Gameplay.hide()
-	pass
 
 func _process(delta: float):
 	# Polling
@@ -70,5 +70,6 @@ func tapRelease():
 func hold():
 	current_state.hold()
 
-func _on_menu_start_gameplay():
+func _on_menu_start_gameplay(new_num_players):
+	num_players = new_num_players
 	change_state($Gameplay)

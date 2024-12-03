@@ -1,25 +1,23 @@
-[gd_scene load_steps=50 format=3 uid="uid://285p6rvf7be"]
+[gd_scene load_steps=49 format=3 uid="uid://285p6rvf7be"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_1wycq"]
 [ext_resource type="PackedScene" uid="uid://x11ni4l5mda5" path="res://courses/course1.tscn" id="1_qjky6"]
 [ext_resource type="PackedScene" uid="uid://c1h3vgnws40p2" path="res://courses/course2.tscn" id="2_6pa0n"]
 [ext_resource type="PackedScene" uid="uid://cx8mahx2fohyw" path="res://courses/course3.tscn" id="3_modgg"]
 [ext_resource type="Texture2D" uid="uid://cyqpy1orgr7rm" path="res://assets/ball.png" id="4_a1txq"]
-[ext_resource type="Script" path="res://ball.gd" id="5_ffw6m"]
 [ext_resource type="Texture2D" uid="uid://dhgmgf77l33e0" path="res://assets/powermeter.png" id="5_ny4lt"]
 [ext_resource type="Texture2D" uid="uid://b6wy4kaltdq2g" path="res://assets/P1.png" id="5_uxl3b"]
 [ext_resource type="Texture2D" uid="uid://dbqhuk0lbb5yd" path="res://assets/P2.png" id="6_c0fe5"]
 [ext_resource type="Texture2D" uid="uid://dhswti3218mkw" path="res://assets/P3.png" id="7_ew2wl"]
 [ext_resource type="Texture2D" uid="uid://dn0nwddwifer6" path="res://assets/P4.png" id="8_jbm7o"]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_igfad"]
-bounce = 1.0
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jhqlf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_03t64"]
 radius = 8.0
 
 [sub_resource type="Gradient" id="Gradient_urx15"]
-colors = PackedColorArray(0, 1, 0.333333, 1, 0.877664, 0.998882, 0.894371, 1)
+colors = PackedColorArray(0.877664, 0.998882, 0.894371, 1, 0, 1, 0.333333, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_r1u6v"]
 gradient = SubResource("Gradient_urx15")
@@ -84,7 +82,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_kdhgi")
 }],
-"loop": false,
+"loop": true,
 "name": &"default",
 "speed": 15.0
 }]
@@ -141,9 +139,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_gt4l7")
 }],
-"loop": false,
+"loop": true,
 "name": &"default",
-"speed": 15.0
+"speed": 5.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sgirx"]
@@ -198,9 +196,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_khpqv")
 }],
-"loop": false,
+"loop": true,
 "name": &"default",
-"speed": 15.0
+"speed": 5.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7mthb"]
@@ -255,16 +253,15 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_sfw58")
 }],
-"loop": false,
+"loop": true,
 "name": &"default",
-"speed": 15.0
+"speed": 5.0
 }]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_1wycq")
 
 [node name="Course1" parent="." instance=ExtResource("1_qjky6")]
-visible = false
 
 [node name="Course2" parent="." instance=ExtResource("2_6pa0n")]
 visible = false
@@ -273,47 +270,44 @@ visible = false
 visible = false
 
 [node name="Ball" type="RigidBody2D" parent="."]
-physics_material_override = SubResource("PhysicsMaterial_igfad")
-linear_damp_mode = 1
-linear_damp = 0.5
-angular_damp = 3.061
-script = ExtResource("5_ffw6m")
+position = Vector2(344, 464)
+physics_material_override = SubResource("PhysicsMaterial_jhqlf")
+gravity_scale = 0.0
 
 [node name="BallSprite" type="Sprite2D" parent="Ball"]
 scale = Vector2(4, 4)
 texture = ExtResource("4_a1txq")
-metadata/_edit_lock_ = true
 
 [node name="BallCollider" type="CollisionShape2D" parent="Ball"]
+visible = false
 shape = SubResource("CircleShape2D_03t64")
-metadata/_edit_lock_ = true
 
-[node name="Hud" type="Node2D" parent="."]
-
-[node name="Angle" type="Sprite2D" parent="Hud"]
-modulate = Color(1, 1, 1, 0.745098)
-rotation = -1.5708
+[node name="Angle" type="Sprite2D" parent="Ball"]
+visible = false
+position = Vector2(0, -78)
+rotation = 1.5708
 scale = Vector2(4, 4)
 texture = SubResource("GradientTexture1D_r1u6v")
-offset = Vector2(19.5, 0)
 
-[node name="PowerMeter" type="Sprite2D" parent="Hud"]
-rotation = -1.5708
+[node name="PowerMeter" type="Sprite2D" parent="Ball"]
+visible = false
+position = Vector2(32, -48)
+rotation = 1.5708
 scale = Vector2(4, 4)
 texture = ExtResource("5_ny4lt")
-centered = false
-offset = Vector2(1, 6)
 
-[node name="Power" type="Sprite2D" parent="Hud"]
+[node name="Power" type="Sprite2D" parent="Ball"]
+visible = false
+position = Vector2(26, -8)
 rotation = -1.5708
-scale = Vector2(4, 4)
+scale = Vector2(4, 12)
 texture = SubResource("GradientTexture1D_cknah")
 centered = false
-offset = Vector2(2, 7)
 region_enabled = true
-region_rect = Rect2(0, 0, 0, 3)
+region_rect = Rect2(0, 0, 20, 1)
 
 [node name="P1" type="AnimatedSprite2D" parent="."]
+position = Vector2(344, 464)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_hogoi")
 frame_progress = 0.811943
@@ -339,9 +333,3 @@ position = Vector2(721, 321)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_53jkw")
 offset = Vector2(-8, 1)
-
-[node name="TurnEndDelay" type="Timer" parent="."]
-wait_time = 0.872
-one_shot = true
-
-[connection signal="timeout" from="TurnEndDelay" to="." method="_on_turn_end_delay_timeout"]

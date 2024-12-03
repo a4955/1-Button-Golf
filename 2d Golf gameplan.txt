@@ -49,6 +49,9 @@ optional additions:
 turn timer
 mercy rule
 player running to ball
+add better outline to course, art better
+power bar alters speed of anim
+interplayer collision
 
 for multiplayer, do I want to have it go by who is furthest like golf, or just do static turn order
 

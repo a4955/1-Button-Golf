@@ -14,12 +14,14 @@ config/name="1 Button Golf"
 run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
+run/vsync/vsync_mode=2
 
 [display]
 
 window/size/viewport_width=1600
 window/size/viewport_height=900
 window/stretch/mode="viewport"
+window/vsync/vsync_mode=2
 
 [input]
 
@@ -32,6 +34,12 @@ the_button={
 , Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":0,"axis_value":-1.0,"script":null)
 ]
 }
+
+[physics]
+
+2d/default_gravity=0.0
+2d/default_linear_damp=1.0
+2d/default_angular_damp=2.089
 
 [rendering]
 

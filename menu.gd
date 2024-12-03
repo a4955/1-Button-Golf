@@ -1,15 +1,11 @@
 extends CanvasLayer
-signal start_gameplay
+signal start_gameplay(num_players)
 var current_state
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	current_state = $MainMenu
 	$PlayersMenu.hide()
-	pass # Replace with function body.
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 
@@ -40,6 +36,7 @@ func change_state(state):
 		#current_state.resize()
 
 func tapInstant():
+	_on_players_menu_start_game(3) # remove
 	if current_state:
 		current_state.tapInstant()
 
@@ -58,6 +55,5 @@ func _on_players_menu_back_to_menu():
 	change_state($MainMenu)
 
 func _on_players_menu_start_game(num_players):
-	num_players = 4 ##### HARDCODE, REMOVE THIS AFTER TESTING
 	change_state(null)
 	start_gameplay.emit(num_players)
