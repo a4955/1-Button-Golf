@@ -1,27 +1,41 @@
 extends RigidBody2D
 var translate = null
 var velocity = null
+var move_player = null
+var last_position = null
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+func _ready():
+	pass
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(delta: float):
+	#print(get_position())
 	pass
 
 func _integrate_forces(state):
+	var newtransform = state.get_transform()
+	print(newtransform)
+	print(velocity)
+	last_position = newtransform.origin
+	print(last_position)
 	if translate:
-		var newtransform = state.get_transform()
 		newtransform.origin = translate
 		state.set_transform(newtransform)
+		print(translate)
 		translate = null
 	if velocity:
 		state.linear_velocity = velocity
+		velocity = null
+	if move_player:
+		pass
 
 func set_velocity_safely(new_velocity: Vector2):
 	velocity = new_velocity
 
 func set_position_safely(coords: Vector2):
 	translate = coords
+
+func move_player_to_ball(player: Node, hud: Node):
+	player.set_position(get_position())
+	player.set_rotation(get_rotation())
+	hud.set_position(get_position())
+	hud.set_rotation(get_rotation())

@@ -1,5 +1,6 @@
 extends Node
 var player
+var ball
 var phase
 var power = 0
 var power_held = false
@@ -11,13 +12,12 @@ var p1_coords = Vector2(0,0)
 var p2_coords = Vector2(0,0)
 var p3_coords = Vector2(0,0)
 var p4_coords = Vector2(0,0)
-var coords
 const ROTATION_SPEED = 3
 const MAX_POWER = 20
 
 func _ready():
 	change_course($Course1)
-	change_player($P1)
+	change_player($P1, $Ball1)
 	change_phase("Start")
 
 func _process(delta: float):
@@ -33,25 +33,24 @@ func _process(delta: float):
 				if !Input.is_anything_pressed():
 					angle_released = true
 
-
 func _physics_process(delta: float):
 	if phase == "Idle": 
 		if player.get_frame() == 3:
 			if !swung:
 				swung = true
-				$Ball.apply_central_impulse(Vector2(0,-50 * power).rotated($Ball.get_rotation()))
+				ball.apply_central_impulse(Vector2(0,-50 * power).rotated(ball.get_rotation()))
 		elif swung:
-			$Ball.apply_central_force(-$Ball.linear_velocity.normalized()*50)
-			if $Ball.linear_velocity.abs() < Vector2(1,1):
+			ball.apply_central_force(-ball.linear_velocity.normalized()*50)
+			if ball.linear_velocity.abs() < Vector2(1,1):
 				swung = false
-				$Ball.set_velocity_safely(Vector2(0,0))
+				ball.set_velocity_safely(Vector2(0,0))
 				$TurnEndDelay.start()
 
 func angle_phase(delta: float):
-	var current_rotation = $Ball.get_rotation()
-	$Ball.set_rotation(current_rotation + (ROTATION_SPEED * delta))
-	$Hud.set_rotation($Ball.get_rotation())
-	player.set_rotation($Ball.get_rotation())
+	var current_rotation = ball.get_rotation()
+	ball.set_rotation(current_rotation + (ROTATION_SPEED * delta))
+	$Hud.set_rotation(ball.get_rotation())
+	player.set_rotation(ball.get_rotation())
 
 func power_phase(delta: float):
 	if Input.is_anything_pressed():
@@ -86,6 +85,8 @@ func change_course(new_course: Node):
 	p2_coords = course.get_node("BallSpawn").get_position()
 	p3_coords = course.get_node("BallSpawn").get_position()
 	p4_coords = course.get_node("BallSpawn").get_position()
+	#$Ball.set_position(course.get_node("BallSpawn").get_position())
+	#$Ball.set_rotation(course.get_node("BallSpawn").get_rotation())
 
 func reset():
 	pass
@@ -101,38 +102,36 @@ func tapRelease():
 func hold():
 	pass
 
-func change_player(next_player: Node):
+func change_player(next_player: Node, next_ball: Node):
 	player = next_player
+	ball = next_ball
 	$P1.hide()
 	$P2.hide()
 	$P3.hide()
 	$P4.hide()
 	match next_player.name:
 		"P1":
-			$Ball.set_position_safely(p1_coords)
-			coords = p1_coords
+			#$Ball.set_position(p1_coords)
 			$P1.show()
 		"P2":
-			$Ball.set_position_safely(p2_coords)
-			coords = p2_coords
+			#$Ball.set_position(p2_coords)
 			$P2.show()
 		"P3":
-			$Ball.set_position_safely(p3_coords)
-			coords = p3_coords
+			#$Ball.set_position(p3_coords)
 			$P3.show()
 		"P4":
-			$Ball.set_position_safely(p4_coords)
-			coords = p4_coords
+			#$Ball.set_position(p4_coords)
 			$P4.show()
 
 func change_phase(next_phase: String):
 	phase = next_phase
 	match phase:
 		"Start":
-			player.set_position(coords)
-			player.set_rotation($Ball.get_rotation())
-			$Hud.set_position(coords)
-			$Hud.set_rotation($Ball.get_rotation())
+			#ball.move_player_to_ball(player, $Hud)
+			player.set_position(ball.get_position())
+			player.set_rotation(ball.get_rotation())
+			$Hud.set_position(ball.get_position())
+			$Hud.set_rotation(ball.get_rotation())
 		"Angle":
 			get_node("Hud/Angle").show()
 		"Power":
@@ -149,28 +148,35 @@ func change_phase(next_phase: String):
 func _on_turn_end_delay_timeout():
 	# Decide how to decide the next player. Order, or furthest?
 	var next_player
-	player.set_frame(1)
+	var next_ball
 	match player.name:
 		"P1":
-			p1_coords = $Ball.get_position()
+			#p1_coords = $Ball.get_position()
 			if get_node("../..").num_players == 1:
 				next_player = $P1
+				next_ball = $Ball1
 			else:
 				next_player = $P2
+				next_ball = $Ball2
 		"P2":
-			p2_coords = $Ball.get_position()
+			#p2_coords = $Ball.get_position()
 			if get_node("../..").num_players == 2:
 				next_player = $P1
+				next_ball = $Ball1
 			else:
 				next_player = $P3
+				next_ball = $Ball3
 		"P3":
-			p3_coords = $Ball.get_position()
+			#p3_coords = $Ball.get_position()
 			if get_node("../..").num_players == 3:
 				next_player = $P1
+				next_ball = $Ball1
 			else:
 				next_player = $P4
+				next_ball = $Ball4
 		"P4":
-			p4_coords = $Ball.get_position()
+			#p4_coords = $Ball.get_position()
 			next_player = $P1
-	change_player(next_player)
+			next_ball = $Ball1
+	change_player(next_player, next_ball)
 	change_phase("Start")

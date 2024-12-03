@@ -272,19 +272,67 @@ visible = false
 [node name="Course3" parent="." instance=ExtResource("3_modgg")]
 visible = false
 
-[node name="Ball" type="RigidBody2D" parent="."]
+[node name="Ball1" type="RigidBody2D" parent="."]
 physics_material_override = SubResource("PhysicsMaterial_igfad")
 linear_damp_mode = 1
 linear_damp = 0.5
 angular_damp = 3.061
 script = ExtResource("5_ffw6m")
 
-[node name="BallSprite" type="Sprite2D" parent="Ball"]
+[node name="BallSprite" type="Sprite2D" parent="Ball1"]
 scale = Vector2(4, 4)
 texture = ExtResource("4_a1txq")
 metadata/_edit_lock_ = true
 
-[node name="BallCollider" type="CollisionShape2D" parent="Ball"]
+[node name="BallCollider" type="CollisionShape2D" parent="Ball1"]
+shape = SubResource("CircleShape2D_03t64")
+metadata/_edit_lock_ = true
+
+[node name="Ball2" type="RigidBody2D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_igfad")
+linear_damp_mode = 1
+linear_damp = 0.5
+angular_damp = 3.061
+script = ExtResource("5_ffw6m")
+
+[node name="BallSprite" type="Sprite2D" parent="Ball2"]
+scale = Vector2(4, 4)
+texture = ExtResource("4_a1txq")
+metadata/_edit_lock_ = true
+
+[node name="BallCollider" type="CollisionShape2D" parent="Ball2"]
+shape = SubResource("CircleShape2D_03t64")
+metadata/_edit_lock_ = true
+
+[node name="Ball3" type="RigidBody2D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_igfad")
+linear_damp_mode = 1
+linear_damp = 0.5
+angular_damp = 3.061
+script = ExtResource("5_ffw6m")
+
+[node name="BallSprite" type="Sprite2D" parent="Ball3"]
+scale = Vector2(4, 4)
+texture = ExtResource("4_a1txq")
+metadata/_edit_lock_ = true
+
+[node name="BallCollider" type="CollisionShape2D" parent="Ball3"]
+shape = SubResource("CircleShape2D_03t64")
+metadata/_edit_lock_ = true
+
+[node name="Ball4" type="RigidBody2D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_igfad")
+linear_damp_mode = 1
+linear_damp = 0.5
+angular_damp = 3.061
+script = ExtResource("5_ffw6m")
+
+[node name="BallSprite" type="Sprite2D" parent="Ball4"]
+scale = Vector2(4, 4)
+texture = ExtResource("4_a1txq")
+metadata/_edit_lock_ = true
+
+[node name="BallCollider" type="CollisionShape2D" parent="Ball4"]
 shape = SubResource("CircleShape2D_03t64")
 metadata/_edit_lock_ = true
 
