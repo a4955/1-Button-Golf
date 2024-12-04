@@ -13,7 +13,7 @@ var p2_in_play
 var p3_in_play
 var p4_in_play
 var num_players
-const ROTATION_SPEED = 3
+const ROTATION_SPEED = 700
 const MAX_POWER = 20
 
 func _ready():
@@ -45,6 +45,7 @@ func _physics_process(delta: float):
 			if !swung:
 				swung = true
 				ball.apply_central_impulse(Vector2(0,-50 * power).rotated(ball.get_rotation()))
+				$HitSfx.play()
 		elif swung:
 			ball.apply_central_force(-ball.linear_velocity.normalized()*50)
 			if ball.linear_velocity.length() < 1:
@@ -53,19 +54,17 @@ func _physics_process(delta: float):
 				$TurnEndDelay.start()
 
 func angle_phase(delta: float):
-	var current_rotation = ball.get_rotation()
-	ball.change_angle_safely(ROTATION_SPEED * delta)
-	ball.move_player_to_ball(player, $Hud)
+	ball.move_player_to_ball(player, $Hud, true)
 
 func power_phase(delta: float):
 	if Input.is_anything_pressed():
 		power_held = true
-		if power > MAX_POWER:
+		if power >= MAX_POWER:
 			power_reverse = true
 		elif power <= 0:
 			power_reverse = false
 		if power_reverse:
-			power -= min((10 * (1 + (power/2))) * delta, 0)
+			power -= max((10 * (1 + (power/2))) * delta, 0)
 		else:
 			power += min((10 * (1 + (power/2))) * delta, MAX_POWER)
 		get_node("Hud/Power").set_region_rect(Rect2(0, 0, power, 3))
@@ -78,7 +77,6 @@ func power_phase(delta: float):
 			change_phase("Idle")
 
 func change_course(new_course: Node):
-	print("b", new_course.name)
 	p1_in_play = true
 	if num_players == 2: p2_in_play = true
 	else: p2_in_play = false
@@ -152,24 +150,7 @@ func change_player(next_player: Node, next_ball: Node):
 	player.hide()
 	player = next_player
 	ball = next_ball
-	#$P1.hide()
-	#$P2.hide()
-	#$P3.hide()
-	#$P4.hide()
 	ball.show()
-	#match next_player.name:
-		#"P1":
-			##ball.set_position_safely(p1_coords)
-			#$P1.show()
-		#"P2":
-			##ball.set_position_safely(p2_coords)
-			#$P2.show()
-		#"P3":
-			##ball.set_position_safely(p3_coords)
-			#$P3.show()
-		#"P4":
-			##ball.set_position_safely(p4_coords)
-			#$P4.show()
 
 func change_phase(next_phase: String):
 	phase = next_phase
@@ -178,7 +159,11 @@ func change_phase(next_phase: String):
 			ball.move_player_to_ball(player, $Hud, true)
 		"Angle":
 			get_node("Hud/Angle").show()
+			ball.set_constant_torque(ROTATION_SPEED)
+			ball.set_angular_velocity_safely(4.24757194519043)
 		"Power":
+			ball.set_angular_velocity_safely(0)
+			ball.set_constant_torque(0)
 			player.set_frame(1)
 			power = 0
 			get_node("Hud/Power").set_region_rect(Rect2(0, 0, power, 3))
@@ -189,6 +174,7 @@ func change_phase(next_phase: String):
 			player.play()
 
 func ball_sunk(sunk_ball):
+	$HoleSfx.play()
 	$Confetti.set_position(sunk_ball.get_position())
 	$Confetti.play()
 	sunk_ball.set_position_safely(Vector2(-1000,-1000))
@@ -208,7 +194,6 @@ func _on_turn_end_delay_timeout():
 	player.set_frame(0)
 	if !(p1_in_play || p2_in_play || p3_in_play || p4_in_play):
 		reset_course()
-		print("a", course.name)
 		match course.name:
 			"Course1":
 				change_course($Course2)

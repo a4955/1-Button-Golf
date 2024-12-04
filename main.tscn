@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://main.gd" id="1_6wqs0"]
 [ext_resource type="PackedScene" uid="uid://bf5tfk1vey5qx" path="res://menu.tscn" id="1_h5yjy"]
 [ext_resource type="PackedScene" uid="uid://drk3kx5bjattv" path="res://gameplay.tscn" id="3_amhv5"]
-[ext_resource type="AudioStream" uid="uid://cmnquy6errg4d" path="res://assets/testsong.mp3" id="4_ho018"]
-[ext_resource type="AudioStream" uid="uid://8lij7wwyqj7s" path="res://assets/cancel.ogg" id="5_beey2"]
+[ext_resource type="AudioStream" uid="uid://duclfknvojcs3" path="res://assets/song.mp3" id="4_2x2r7"]
+[ext_resource type="AudioStream" uid="uid://bbexkfvvbl1ob" path="res://assets/cancel.wav" id="5_runm4"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_6wqs0")
@@ -50,12 +50,13 @@ wait_time = 1.733
 one_shot = true
 
 [node name="BgmPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_ho018")
-volume_db = -20.613
+stream = ExtResource("4_2x2r7")
+volume_db = -8.433
+autoplay = true
 
 [node name="CancelSfx" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_beey2")
-volume_db = -14.054
+stream = ExtResource("5_runm4")
+volume_db = -5.622
 
 [connection signal="start_gameplay" from="Menu" to="." method="_on_menu_start_gameplay"]
 [connection signal="timeout" from="HoldTimer" to="." method="_on_hold_timer_timeout"]

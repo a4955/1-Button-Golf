@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://dxqadply0yuw2" path="res://main_menu.tscn" id="2_382ia"]
 [ext_resource type="Texture2D" uid="uid://dci6lykgckuqt" path="res://assets/title.png" id="2_hgw71"]
 [ext_resource type="PackedScene" uid="uid://c1273vccqavai" path="res://players_menu.tscn" id="3_w4klo"]
-[ext_resource type="AudioStream" uid="uid://1rvurnhy1nd0" path="res://assets/confirm.ogg" id="5_feylb"]
-[ext_resource type="AudioStream" uid="uid://r4x11euh8jrc" path="res://assets/move.ogg" id="6_6pamx"]
+[ext_resource type="AudioStream" uid="uid://caxoe8s4y5of2" path="res://assets/confirm.wav" id="5_me03a"]
+[ext_resource type="AudioStream" uid="uid://c6so1odgjwq6b" path="res://assets/move.wav" id="6_d4i48"]
 [ext_resource type="Texture2D" uid="uid://ixcftu832dma" path="res://assets/holdsheet.png" id="7_ducso"]
 [ext_resource type="Texture2D" uid="uid://tu2mvvwebfrd" path="res://assets/tapsheet.png" id="8_sbbof"]
 [ext_resource type="Texture2D" uid="uid://dk26mwpxgy551" path="res://assets/confirm.png" id="9_ukuhl"]
@@ -131,11 +131,11 @@ texture = ExtResource("2_hgw71")
 [node name="PlayersMenu" parent="." instance=ExtResource("3_w4klo")]
 
 [node name="ConfirmSfx" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_feylb")
+stream = ExtResource("5_me03a")
 volume_db = -14.054
 
 [node name="MoveSfx" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6_6pamx")
+stream = ExtResource("6_d4i48")
 volume_db = -14.054
 
 [node name="HoldTutorial" type="AnimatedSprite2D" parent="."]

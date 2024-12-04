@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://285p6rvf7be"]
+[gd_scene load_steps=59 format=3 uid="uid://285p6rvf7be"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_1wycq"]
 [ext_resource type="PackedScene" uid="uid://x11ni4l5mda5" path="res://courses/course1.tscn" id="1_qjky6"]
@@ -12,6 +12,9 @@
 [ext_resource type="Texture2D" uid="uid://dhswti3218mkw" path="res://assets/P3.png" id="7_ew2wl"]
 [ext_resource type="Texture2D" uid="uid://dn0nwddwifer6" path="res://assets/P4.png" id="8_jbm7o"]
 [ext_resource type="Texture2D" uid="uid://c1h46irdqo7ko" path="res://assets/confetti.png" id="12_a06lo"]
+[ext_resource type="AudioStream" uid="uid://dcyegmy4i6mhj" path="res://assets/hitwall.wav" id="13_vu8fv"]
+[ext_resource type="AudioStream" uid="uid://b2evs3hr20dw0" path="res://assets/hit.wav" id="14_onoq6"]
+[ext_resource type="AudioStream" uid="uid://b0wbopvh3caai" path="res://assets/hole.wav" id="15_edix2"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_igfad"]
 bounce = 1.0
@@ -446,5 +449,17 @@ sprite_frames = SubResource("SpriteFrames_gawnp")
 [node name="TurnEndDelay" type="Timer" parent="."]
 wait_time = 0.872
 one_shot = true
+
+[node name="HitWallSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_vu8fv")
+volume_db = -6.558
+
+[node name="HitSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_onoq6")
+volume_db = -6.558
+
+[node name="HoleSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_edix2")
+volume_db = -6.558
 
 [connection signal="timeout" from="TurnEndDelay" to="." method="_on_turn_end_delay_timeout"]

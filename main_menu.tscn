@@ -72,8 +72,6 @@ texture_filter = 1
 position = Vector2(900, 700)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_wq2lf")
-frame = 1
-frame_progress = 0.0128243
 
 [node name="Exit" type="Sprite2D" parent="."]
 texture_filter = 1
