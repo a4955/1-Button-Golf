@@ -4,7 +4,7 @@ var hold_ready = false
 var hold_cancelled = false
 var sfx = true
 var hold_enabled = true
-var num_players
+var num_players = 1
 ##### REMEMBER TO TURN MUSIC AUTOPLAY ON
 func _ready():
 	current_state = $Menu

@@ -22,9 +22,10 @@ func _ready():
 	num_players = get_node("../..").num_players
 	player = $P1
 	ball = $Ball1
-	change_course($Course1)
-	change_player($P1, $Ball1)
-	change_phase("Start")
+	course = $Course1
+	#change_course($Course1)
+	#change_player($P1, $Ball1)
+	#change_phase("Start")
 
 func _process(delta: float):
 	match phase:
@@ -78,11 +79,11 @@ func power_phase(delta: float):
 
 func change_course(new_course: Node):
 	p1_in_play = true
-	if num_players == 2: p2_in_play = true
+	if num_players >= 2: p2_in_play = true
 	else: p2_in_play = false
-	if num_players == 3: p3_in_play = true
+	if num_players >= 3: p3_in_play = true
 	else: p3_in_play = false
-	if num_players == 4: p4_in_play = true
+	if num_players >= 4: p4_in_play = true
 	else: p4_in_play = false
 	if course:
 		course.get_node("HoleHitbox/HoleHitboxShape").set_disabled(true)
@@ -115,11 +116,11 @@ func reset_course():
 	$P3.hide()
 	$P4.hide()
 	p1_in_play = true
-	if num_players == 2: p2_in_play = true
+	if num_players >= 2: p2_in_play = true
 	else: p2_in_play = false
-	if num_players == 3: p3_in_play = true
+	if num_players >= 3: p3_in_play = true
 	else: p3_in_play = false
-	if num_players == 4: p4_in_play = true
+	if num_players >= 4: p4_in_play = true
 	else: p4_in_play = false
 	var spawn = course.get_node("BallSpawn").get_position()
 	$Ball1.set_position_safely(spawn)
